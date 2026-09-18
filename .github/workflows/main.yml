@@ -3,7 +3,8 @@ name: Build Android APKs
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
@@ -19,16 +20,27 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Make Gradle executable
-        working-directory: LocationSecurityLab
-        run: chmod +x gradlew
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
 
-      - name: Build APKs
-        working-directory: LocationSecurityLab
-        run: ./gradlew assembleDebug
+      - name: Build App A
+        working-directory: LocationSecurityLab/AppA-LocationSimulator
+        run: gradle assembleDebug
 
-      - name: Upload APKs
+      - name: Build App B
+        working-directory: LocationSecurityLab/AppB-LocationDetector
+        run: gradle assembleDebug
+
+      - name: Upload App A APK
         uses: actions/upload-artifact@v4
         with:
-          name: LocationSecurityLab-APKs
-          path: LocationSecurityLab/**/build/outputs/apk/debug/*.apk
+          name: AppA-LocationSimulator
+          path: LocationSecurityLab/AppA-LocationSimulator/app/build/outputs/apk/debug/*.apk
+
+      - name: Upload App B APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AppB-LocationDetector
+          path: LocationSecurityLab/AppB-LocationDetector/app/build/outputs/apk/debug/*.apk
