@@ -1,0 +1,66 @@
+LOCATION SECURITY LAB - BUILD APKs WITHOUT ANDROID STUDIO
+=========================================================
+
+This package contains:
+  AppA-LocationSimulator  - controlled Android mock-location test app
+  AppB-LocationDetector   - location diagnostic/detection app
+  .github/workflows/build-apks.yml - GitHub Actions cloud build
+
+HOW TO BUILD
+------------
+1. Sign in to GitHub and create a NEW EMPTY repository.
+   Do not add a README, .gitignore, or license when creating it.
+
+2. Extract this ZIP on your computer.
+
+3. Upload ALL contents inside the LocationSecurityLab folder to the ROOT
+   of your GitHub repository. Important: the .github folder must also be
+   uploaded. The repository root should show:
+
+      .github/
+      AppA-LocationSimulator/
+      AppB-LocationDetector/
+      README.txt
+      GITHUB_BUILD_INSTRUCTIONS.txt
+
+4. Open the repository's "Actions" tab.
+
+5. Select "Build Android APKs".
+
+6. Click "Run workflow" and then "Run workflow" again.
+   A push to main/master also starts a build automatically.
+
+7. Wait for the build to finish. Open the completed workflow run.
+
+8. At the bottom under "Artifacts", download:
+      LocationSecurityLab-APKs
+
+   It contains:
+      AppA-LocationSimulator.apk
+      AppB-LocationDetector.apk
+
+PHONE SETUP
+-----------
+1. Install both APKs on your Android test phone. Android may ask you to
+   allow installation from the browser/file manager you use.
+
+2. Give the apps location permission when requested.
+
+3. Enable Android Developer Options on the TEST phone.
+
+4. Open:
+      Settings > Developer options > Select mock location app
+   and select App A / Location Simulator.
+
+5. Start a controlled test location or trajectory in App A.
+
+6. Open App B and inspect the received location and detection signals.
+
+IMPORTANT
+---------
+App A uses Android's supported mock/test-location mechanism. It does not
+remove or conceal Android's mock-location indication or bypass device/app
+anti-spoofing protections.
+
+The APKs produced by this workflow are DEBUG APKs, intended for your own
+research/testing devices. They are not Play Store release packages.
