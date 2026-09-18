@@ -1,0 +1,34 @@
+name: Build Android APKs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Make Gradle executable
+        working-directory: LocationSecurityLab
+        run: chmod +x gradlew
+
+      - name: Build APKs
+        working-directory: LocationSecurityLab
+        run: ./gradlew assembleDebug
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: LocationSecurityLab-APKs
+          path: LocationSecurityLab/**/build/outputs/apk/debug/*.apk
