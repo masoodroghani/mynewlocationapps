@@ -1,10 +1,10 @@
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.android") }
 android {
-    namespace = "com.example.locationsimulator"
+    namespace = "com.example.locationdetector"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.locationsimulator"
+        applicationId = "com.example.locationdetector"
         minSdk = 23
         targetSdk = 35
         versionCode = 1
